@@ -1,0 +1,17 @@
+{
+  "name": "ScreenHue",
+  "version": "0.1.0",
+  "main": "server.js",
+  "dependencies": {
+    "socket.io": "~0.9.10"
+  },
+  "devDependencies": {
+    "node-dev": "*"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "devserver": "./node_modules/node-dev/node-dev server.js"
+  },
+  "license": "MIT",
+  "description": "A simple socket.io app that throws you a lot of different colours. Inspired by Philips Hue - http://www.meethue.com/"
+}
