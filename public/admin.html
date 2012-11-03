@@ -1,47 +1,95 @@
 <html>
-<head>
+  <head>
     <title>Screen Hue :.: Admin</title>
-    <script src="//172.25.240.36:4000/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>
-        var socket = io.connect('//172.25.240.36:4000');
 
-        $(function () {
-            $("#colorPicker").change(function () {
-                socket.emit('message', $(this).val());
-            });
+      var socket = io.connect('/');
 
-            $("#pageTitle").keyup(function () {
-              socket.emit('changeTitle', $(this).val());
-            });
+      $(function() {
+
+        $("#colorPicker").change(function() {
+          socket.emit('updateColor', $(this).val());
         });
+
+        $("#message").keyup(function() {
+          socket.emit('updateMessage', $(this).val());
+        });
+
+        socket.on('updateConnectedScreens', function(content) {
+          $('.connected-screens').text(content);
+        });
+
+      });
+
     </script>
 
     <style type="text/css">
-        body {
-            font-family: "Helvetica Neue", sans-serif;
-            font-weight: lighter;
-            width: 30%;
-            margin: 50px auto;
-            text-align: center;
-        }
+      body {
+        font-family: "Helvetica Neue", sans-serif;
+        font-weight: lighter;
+        width: 50%;
+        margin: 50px auto;
+        text-align: center;
+      }
 
-        input {
-            margin-bottom: -5px;
-        }
+      form {
+        margin-top: 25px;
+      }
+
+      .row {
+        margin-bottom: 15px;
+        display: block;
+        padding-bottom: 15px;
+      }
+
+      .row label,
+      .row .label {
+        float: left;
+        width: 50%;
+        text-align: right;
+        margin-right: 10px;
+      }
+
+      .connected-screens {
+        float: left;
+      }
+
+      .row input {
+        width: 40%;
+        float: left;
+      }
+
+      footer {
+        text-align: center;
+      }
     </style>
 
-</head>
-<body>
-<h1>Screen Hue</h1>
+  </head>
+  <body>
 
-<p>Probably the best program in the world not really :)</p>
+    <h1>Screen Hue</h1>
 
-<form>
-    <label for="colorPicker">Select your color: </label>
-    <input id="colorPicker" type="color"><br>
-    <input id="pageTitle" type="text"><br>
-</form>
+    <p>Probably the best program in the world&hellip; <br> not really :)</p>
 
-</body>
+    <form>
+      <div class="row">
+        <label for="colorPicker">Select your color: </label>
+        <input id="colorPicker" type="color">
+      </div>
+
+      <div class="row">
+        <label for="message">Message:</label>
+        <input id="message" type="text">
+      </div>
+
+      <div class="row">
+        <span class="label">Connected screens &#9635;:</span> <span class="connected-screens">1</span>
+      </div>
+
+    </form>
+
+
+  </body>
 </html>
