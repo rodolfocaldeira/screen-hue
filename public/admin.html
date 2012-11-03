@@ -1,15 +1,18 @@
 <html>
 <head>
     <title>Screen Hue :.: Admin</title>
-    <script src="//192.168.0.143:4000/socket.io/socket.io.js"></script>
+    <script src="//172.25.240.36:4000/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>
-        var socket = io.connect('//192.168.0.143:4000');
-        socket.emit('my event', 'Hello world.');
+        var socket = io.connect('//172.25.240.36:4000');
 
         $(function () {
             $("#colorPicker").change(function () {
                 socket.emit('message', $(this).val());
+            });
+
+            $("#pageTitle").keyup(function () {
+              socket.emit('changeTitle', $(this).val());
             });
         });
     </script>
@@ -37,6 +40,7 @@
 <form>
     <label for="colorPicker">Select your color: </label>
     <input id="colorPicker" type="color"><br>
+    <input id="pageTitle" type="text"><br>
 </form>
 
 </body>

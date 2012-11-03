@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "main": "server.js",
   "dependencies": {
-    "socket.io": "~0.9.10"
+    "socket.io": "~0.9.10",
+    "node-static": "~0.6.4"
   },
   "devDependencies": {
     "node-dev": "*"

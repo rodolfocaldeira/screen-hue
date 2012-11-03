@@ -26,12 +26,25 @@ function readFile(req, res, filename) {
     );
 }
 
+var connectedScreens = 0;
+
 io.sockets.on('connection', function (socket) {
-    socket.on('my event', function (content) {
-        console.log(content);
-    });
+
+    connectedScreens++;
+    console.log('Connected screens ' + connectedScreens);
 
     socket.on('message', function (content) {
         io.sockets.emit('message', content);
     });
+
+    socket.on('changeTitle', function (content) {
+        console.log('BABAB');
+        io.sockets.emit('changeTitle', content);
+    });
+
+    socket.on('disconnect', function () {
+        connectedScreens--;
+        console.log('Connected screens ' + connectedScreens);
+    });
+
 });
